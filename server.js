@@ -7,8 +7,8 @@ import mongoose from "mongoose";
 dotenv.config();
 const app = express();
 app.use(cors());
-app.use(express.json({ extended: true }));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ extended: true, limit: "30mb" }));
+app.use(express.urlencoded({ extended: true, limit: "30mb" }));
 
 const PORT = process.env.PORT || 4000;
 
