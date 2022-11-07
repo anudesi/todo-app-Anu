@@ -28,7 +28,7 @@ function Signup() {
       .post(`${process.env.REACT_APP_BE_URL}/auth/signup`, userData)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("profile", JSON.stringify(res.data));
+        localStorage.setItem("toDoToken", JSON.stringify(res.data));
 
         setFailMessage(false);
         setMessage(true);

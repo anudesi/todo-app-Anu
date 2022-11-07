@@ -1,13 +1,19 @@
 import React,{useState, useEffect} from 'react'
 import axios from "axios"
+import { useNavigate } from 'react-router-dom'
 
-function Signin() {
+function Signin(props) {
 
     const [userData, setUserData] = useState({
         email:"",
         password:"",
   
     })
+
+const {itCouldBeAnyName} = props
+
+const navigate = useNavigate()
+const [error, setError] = useState("")
 
 const blurHandler = (e) =>{
     
@@ -27,10 +33,13 @@ const blurHandler = (e) =>{
     const submitHandler = (e) =>{
         e.preventDefault()
 
-        console.log(userData)
         axios.post(`${process.env.REACT_APP_BE_URL}/auth/signin`,userData)
-    .then(res=>console.log("response from backend", res))
-    .catch(err => console.log(err))
+    .then(res=>{
+        localStorage.setItem("toDoToken",JSON.stringify(res.data.data.token))
+        itCouldBeAnyName()
+        navigate("/dashboard")
+    })
+    .catch(err => setError(err.response.data.message))
     }    
     return (
     <div>
@@ -47,6 +56,10 @@ const blurHandler = (e) =>{
             </div>
 
             <button type='submit'> Log In</button>
+            <hr/>
+            {
+                error? (<p>{error}</p>) : null
+            }
         </form>
 
         </div>
