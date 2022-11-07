@@ -1,6 +1,21 @@
 import React from 'react'
-import {Link, BrowserRouter as router, Router} from "react-router-dom"
-function NavBar() {
+import {Link, BrowserRouter as router, Router, useNavigate} from "react-router-dom"
+function NavBar(props) {
+
+    const {authorized, authHandler} = props
+    
+    const navigate = useNavigate()
+
+    const mangageAuthorization = () => {
+        if(authorized) {
+            navigate("/")
+            authHandler()
+        }
+        else navigate("/signin")
+            
+    }
+
+
     return (
         <div>
      
@@ -11,6 +26,8 @@ function NavBar() {
                         Home
                     </Link>
                 </li>
+                {!authorized?
+                (<>
                 <li>
                     <Link to="/signin"  style={{textDecoration:"none"}}>
                         Signin
@@ -21,11 +38,24 @@ function NavBar() {
                         Signup
                     </Link>
                 </li>
-                <li>
+                </>)
+                :null}
+
+                {authorized?
+                (<li>
                     <Link to="/dashboard"  style={{textDecoration:"none"}}>
                         Dashboard
                     </Link>
+                </li>)
+                : null}
+
+
+                 <button onClick={mangageAuthorization}>
+                <li>
+                    {authorized? "Logout" : "Login"}
                 </li>
+                 </button>
+     
             </ul>
   
         </div>
