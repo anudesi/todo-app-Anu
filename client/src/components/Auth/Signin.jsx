@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
+import { GoogleLogin } from "react-google-login"
 
 function Signin(props) {
 
@@ -40,7 +41,15 @@ const blurHandler = (e) =>{
         navigate("/dashboard")
     })
     .catch(err => setError(err.response.data.message))
-    }    
+    }   
+    
+    const onSuccess = (res) => {
+        console.log("succss", res)
+    }
+
+    const onFailure = (err) => {
+        console.log("error", err)
+    }
     return (
     <div>
         <h3>Log In</h3>
@@ -60,6 +69,12 @@ const blurHandler = (e) =>{
             {
                 error? (<p>{error}</p>) : null
             }
+            <GoogleLogin 
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT}
+                buttonText="Google Login"
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                />
         </form>
 
         </div>
