@@ -4,7 +4,10 @@
   "description": "- Full stack application  - We want to deploy it as one app on heroku in future - Need to take care of the Structure of  The Application:",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd client && npm start",
+    "backend": "nodemon server.js",
+    "dev": "concurrently --kill-others \"npm run backend\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -17,5 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "concurrently": "^7.5.0"
+  }
 }
