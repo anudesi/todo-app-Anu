@@ -64,3 +64,4 @@ export const signinController = async (req, res) => {
   });
 };
 
+export const authorizeController = (req, res) => res.status(200).json({status:"success", email: req.userEmail})

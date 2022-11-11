@@ -1,40 +1,54 @@
 import React from 'react'
 import {Link, BrowserRouter as router, Router, useNavigate} from "react-router-dom"
+
 function NavBar(props) {
 
-    const {authorized, authHandler} = props
-    
+    const {authorized, authHandler} = props   
     const navigate = useNavigate()
+
+    const listStyling ={
+        display:"flex",
+        listStyle:"none", 
+        justifyContent:"space-evenly" ,
+        width:"100vw",
+        position:"absolute",
+        top:0,
+        left:0, 
+        backgroundColor:"white" 
+    }
 
     const mangageAuthorization = () => {
         if(authorized) {
             navigate("/")
+            localStorage.removeItem("toDoToken")
             authHandler()
         }
-        else navigate("/signin")
-            
+        else navigate("/signin")      
     }
-
-
     return (
         <div>
-     
-
-            <ul style={{display:"flex", listStyle:"none", justifyContent:"space-evenly" , width:"100vw", position:"absolute", top:0, left:0, backgroundColor:"white" }}>
+            <ul 
+            style={listStyling}>
                 <li>
-                    <Link to="/"  style={{textDecoration:"none"}}>
+                    <Link 
+                        to="/"  
+                        style={{textDecoration:"none"}}>
                         Home
                     </Link>
                 </li>
                 {!authorized?
                 (<>
                 <li>
-                    <Link to="/signin"  style={{textDecoration:"none"}}>
+                    <Link 
+                        to="/signin"  
+                        style={{textDecoration:"none"}}>
                         Signin
                     </Link>
                 </li>
                 <li>
-                    <Link to="/signup"  style={{textDecoration:"none"}}>
+                    <Link 
+                        to="/signup"  
+                        style={{textDecoration:"none"}}>
                         Signup
                     </Link>
                 </li>
@@ -43,23 +57,25 @@ function NavBar(props) {
 
                 {authorized?
                 (<li>
-                    <Link to="/dashboard"  style={{textDecoration:"none"}}>
+                    <Link 
+                        to="/dashboard"  
+                        style={{textDecoration:"none"}}>
                         Dashboard
                     </Link>
                 </li>)
                 : null}
 
-
-                 <button onClick={mangageAuthorization}>
-                <li>
-                    {authorized? "Logout" : "Login"}
+                <li 
+                    onClick={mangageAuthorization}
+                    style={{color:"black", border:"2px red solid"}}>
+                    {
+                        authorized? 
+                        "Logout":
+                        "Login"
+                    }
                 </li>
-                 </button>
-     
             </ul>
-  
         </div>
     )
 }
-
 export default NavBar

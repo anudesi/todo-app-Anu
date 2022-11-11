@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
-import { GoogleLogin } from "react-google-login"
+import { GoogleLogin, GoogleLogout } from "react-google-login"
+import { gapi } from "gapi-script"
 
 function Signin(props) {
 
@@ -13,6 +14,16 @@ function Signin(props) {
     const { itCouldBeAnyName } = props
     const navigate = useNavigate()
 
+    useEffect(()=>{
+        function start(){
+            gapi.client.init({
+                clientId: process.env.REACT_APP_GOOGLE_CLIENT,
+                scope:""
+            })
+
+            gapi.load("client:auth2", start)
+        }
+    }, [])
     const blurHandler = (e) => {
         const propertyName = e.target.name
         const propertyValue = e.target.value
@@ -37,11 +48,13 @@ function Signin(props) {
     }
 
     const onSuccess = (res) => {
-        console.log("succss", res)
+        localStorage.setItem("toDoToken", JSON.stringify(res.tokenObj.id_token))
+        itCouldBeAnyName()
+        navigate("/dashboard")
     }
 
     const onFailure = (err) => {
-        console.log("error", err)
+        setError("erro occured while connecting Google")
     }
     return (
         <div>
