@@ -64,4 +64,11 @@ export const signinController = async (req, res) => {
   });
 };
 
+// We will only send 200 response because this controller purpose was only to verify the token
+// That was alread done in verifyToken middle ware ,
+// so if token was invalid we have already sent response in middleware of 400
+// so our request will reach this controller only when the token was valid
+// That is reason we are just sending a success response
+// so front end app could log-in the user automatically if he is having token in local storage and this is valid
+
 export const authorizeController = (req, res) => res.status(200).json({status:"success", email: req.userEmail})

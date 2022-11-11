@@ -20,7 +20,12 @@ function App() {
   // never change the state value like setAuthorized(!authorized)
   // when you want to update the state value depending on its old state value then please always use call back
 
+  /* useEffect */
   // Implementing useEffect to check either user is having a valid token inside his local storage
+  // if we received confirmation from the back-end that token is valid 
+  // we will automatically log-in the user
+  // will not ask him to provide email and password or to login with google
+  
   useEffect(()=>{
     if(localStorage.getItem("toDoToken")) 
       axios.get(
