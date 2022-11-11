@@ -20,7 +20,6 @@ function Signin(props) {
                 clientId: process.env.REACT_APP_GOOGLE_CLIENT,
                 scope:""
             })
-
             gapi.load("client:auth2", start)
         }
     }, [])
@@ -31,11 +30,9 @@ function Signin(props) {
             return {
                 ...oldState,
                 [propertyName]: propertyValue,
-
             }
         })
     }
-
     const submitHandler = (e) => {
         e.preventDefault()
         axios.post(`${process.env.REACT_APP_BE_URL}/auth/signin`, userData)
@@ -79,7 +76,6 @@ function Signin(props) {
                         htmlFor="password">
                         password   :
                     </label>
-
                     <input 
                         type="password"
                         id="password"
@@ -107,5 +103,4 @@ function Signin(props) {
         </div>
     )
 }
-
 export default Signin

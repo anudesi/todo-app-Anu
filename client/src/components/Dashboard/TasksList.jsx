@@ -23,7 +23,13 @@ function TasksList(props) {
     return (
         <>
         <ul>
-            {taskList.map((task, index) => <li key={index} style={listStyling}>{task.title}</li>)}
+            {taskList.map(
+                        (task, index) => 
+                            <li key={index} 
+                                style={listStyling}>
+                                {task.title}
+                            </li>
+                    )}
         </ul> 
         </>
         )
