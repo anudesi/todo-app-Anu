@@ -3,6 +3,7 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom'
 import { GoogleLogin, GoogleLogout } from "react-google-login"
 import { gapi } from "gapi-script"
+import { useRef } from 'react'
 
 function Signin(props) {
 
@@ -11,6 +12,9 @@ function Signin(props) {
         email: "",
         password: "",
     })
+    const emailRef = useRef("")
+    const passwordRef = useRef("")
+
     const { itCouldBeAnyName } = props
     const navigate = useNavigate()
 
@@ -33,8 +37,13 @@ function Signin(props) {
             }
         })
     }
+    const updateRef = (e) =>{
+
+    }
     const submitHandler = (e) => {
         e.preventDefault()
+
+        console.log("refernce values in ref", emailRef.current.value)
         axios.post(`${process.env.REACT_APP_BE_URL}/auth/signin`, userData)
             .then(res => {
                 localStorage.setItem("toDoToken", JSON.stringify(res.data.data.token))
@@ -68,7 +77,9 @@ function Signin(props) {
                         placeholder="enter your email" 
                         name="email" 
                         autoComplete='none' 
-                        onBlur={blurHandler} />
+                        onBlur={blurHandler}
+                        ref={emailRef}
+                        onChange={updateRef} />
                 </div>
 
                 <div>
@@ -81,7 +92,9 @@ function Signin(props) {
                         id="password"
                         placeholder="enter your password"
                         name="password"
-                        onBlur={blurHandler} />
+                        onBlur={blurHandler}
+                        ref={passwordRef}
+                        onChange={updateRef} />
                 </div>
                 <button 
                     type='submit'> 
