@@ -62,7 +62,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname,"./client", "build", "index.html"));
 });
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.CONNECTION_URL)
   .then(() =>
   
     app.listen(PORT, () => {
